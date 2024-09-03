@@ -24,7 +24,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private char direction = 'R';
     private boolean running = false;
     private Timer timer;
-    
+    private boolean paused = false;
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.black);
@@ -45,6 +46,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         draw(g);
     }
 
+    private void showPausedMessage(Graphics g) {
+        g.setColor(Color.white);
+        g.setFont(new Font("Ink Free", Font.BOLD, 40));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        g.drawString("Paused", (SCREEN_WIDTH - metrics.stringWidth("Paused")) / 2, SCREEN_HEIGHT / 2);
+    }
+
     public void draw(Graphics g) {
         if (running) {
             g.setColor(Color.red);
@@ -58,6 +66,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                     g.setColor(new Color(45, 180, 0));
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
+            }
+            if (paused) {
+                showPausedMessage(g);  // Show paused message if the game is paused
             }
         } else {
             gameOver(g);
@@ -115,7 +126,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (running) {
+        if (running && !paused) {
             move();
             checkApple();
             checkCollisions();
@@ -148,23 +159,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                if (direction != 'R') {
+                if (direction != 'R' && !paused) {
                     direction = 'L';
                 }
                 break;
             case KeyEvent.VK_RIGHT:
-                if (direction != 'L') {
+                if (direction != 'L' && !paused) {
                     direction = 'R';
                 }
                 break;
             case KeyEvent.VK_UP:
-                if (direction != 'D') {
+                if (direction != 'D' && !paused) {
                     direction = 'U';
                 }
                 break;
             case KeyEvent.VK_DOWN:
-                if (direction != 'U') {
+                if (direction != 'U' && !paused) {
                     direction = 'D';
+                }
+                break;
+            case KeyEvent.VK_P:  // Pause key
+                if (running) {
+                    paused = !paused;  // Toggle the pause state
                 }
                 break;
         }
