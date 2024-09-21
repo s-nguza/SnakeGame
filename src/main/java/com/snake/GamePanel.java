@@ -1,6 +1,9 @@
 package com.snake;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,9 +58,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     public void draw(Graphics g) {
         if (running) {
+            // Draw apple
             g.setColor(Color.red);
             g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-
+    
+            // Draw snake body
             for (int i = 0; i < bodyParts; i++) {
                 if (i == 0) {
                     g.setColor(Color.green);
@@ -67,6 +72,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
+    
+            // Draw the score
+            g.setColor(Color.white);
+            g.setFont(new Font("Ink Free", Font.BOLD, 20));
+            String scoreText = "Score: " + applesEaten;
+            g.drawString(scoreText, SCREEN_WIDTH - g.getFontMetrics().stringWidth(scoreText) - 10, 30); // Adjust position as needed
+    
             if (paused) {
                 showPausedMessage(g);  // Show paused message if the game is paused
             }
@@ -74,7 +86,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             gameOver(g);
         }
     }
-
+    
     public void newApple() {
         appleX = (int) (Math.random() * (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
         appleY = (int) (Math.random() * (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
@@ -85,35 +97,98 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             bodyParts++;
             newApple();
         }
+        if (applesEaten >= 7) {
+            // Move to Level Two
+            transitionToLevelTwo();
+        }
     }
+    private void transitionToLevelTwo() {
+    // Stop the current timer
+    timer.stop();
+    
+    // Create and switch to LevelTwo
+    LevelTwo levelTwo = new LevelTwo();
+    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+    frame.getContentPane().removeAll();
+    frame.getContentPane().add(levelTwo);
+    frame.revalidate();
+    frame.repaint();
+}
 
-    public void checkCollisions() {
-        // Checks if head collides with body
-        for (int i = bodyParts; i > 0; i--) {
-            if ((x[0] == x[i]) && (y[0] == y[i])) {
-                running = false;
-            }
-        }
-        // Check if head touches left border
-        if (x[0] < 0) {
+
+public void checkCollisions() {
+    // Check for regular collisions (snake colliding with itself, walls, or obstacles)
+    for (int i = bodyParts; i > 0; i--) {
+        if ((x[0] == x[i]) && (y[0] == y[i])) {
             running = false;
-        }
-        // Check if head touches right border
-        if (x[0] > SCREEN_WIDTH) {
-            running = false;
-        }
-        // Check if head touches top border
-        if (y[0] < 0) {
-            running = false;
-        }
-        // Check if head touches bottom border
-        if (y[0] > SCREEN_HEIGHT) {
-            running = false;
-        }
-        if (!running) {
-            timer.stop();
+            handleGameOver();  // Show dialog when the snake hits itself
         }
     }
+    // Check if head touches left border
+    if (x[0] < 0) {
+        running = false;
+        handleGameOver();  // Show dialog when the snake hits the wall
+    }
+    // Check if head touches right border
+    if (x[0] > SCREEN_WIDTH) {
+        running = false;
+        handleGameOver();  // Show dialog when the snake hits the wall
+    }
+    // Check if head touches top border
+    if (y[0] < 0) {
+        running = false;
+        handleGameOver();  // Show dialog when the snake hits the wall
+    }
+    // Check if head touches bottom border
+    if (y[0] > SCREEN_HEIGHT) {
+        running = false;
+        handleGameOver();  // Show dialog when the snake hits the wall
+    }
+}
+
+   
+    private void handleGameOver() {
+        // Stop the game timer when the collision happens
+        timer.stop();
+        
+        // Show option dialog for restart or quit
+        int choice = JOptionPane.showOptionDialog(this,
+                "Game Over! Would you like to restart or quit?",
+                "Game Over",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"Restart", "Quit"},
+                "Restart");
+    
+        if (choice == JOptionPane.YES_OPTION) {
+            restartGame();  // Restart the game if the user chooses to
+        } else {
+            System.exit(0);  // Exit the game if the user chooses to quit
+        }
+    }
+    
+    private void restartGame() {
+        // Reset game variables to initial state
+        bodyParts = 6;
+        applesEaten = 0;
+        direction = 'R';
+        running = true;
+        paused = false;  // Ensure the game is not paused
+    
+        // Reset snake's position
+        for (int i = 0; i < bodyParts; i++) {
+            x[i] = 0;
+            y[i] = 0;
+        }
+    
+        // Place a new apple and restart the timer
+        newApple();
+        timer.restart();
+    }
+    
+
+
 
 
 
