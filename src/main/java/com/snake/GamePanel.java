@@ -9,22 +9,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
-    private final int SCREEN_WIDTH = 600;
-    private final int SCREEN_HEIGHT = 600;
-    private final int UNIT_SIZE = 25;
-    private final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
-    private final int DELAY = 75;
+    protected final int SCREEN_WIDTH = 600;
+    protected final int SCREEN_HEIGHT = 600;
+    protected final int UNIT_SIZE = 25;
+    protected final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
+    protected final int DELAY = 75;
 
-    private final int x[] = new int[GAME_UNITS];
-    private final int y[] = new int[GAME_UNITS];
-    private int bodyParts = 6;
-    private int applesEaten;
-    private int appleX;
-    private int appleY;
-    private char direction = 'R';
-    private boolean running = false;
-    private Timer timer;
-    private boolean paused = false;
+    protected final int x[] = new int[GAME_UNITS];
+    protected final int y[] = new int[GAME_UNITS];
+    protected int bodyParts = 6;
+    protected int applesEaten; // Change to protected
+    protected int appleX;
+    protected int appleY;
+    protected char direction = 'R';
+    protected boolean running = false;
+    protected Timer timer;
+    protected boolean paused = false;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -83,7 +83,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     public void checkApple() {
         if ((x[0] == appleX) && (y[0] == appleY)) {
             bodyParts++;
-            applesEaten++;
             newApple();
         }
     }
@@ -115,6 +114,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             timer.stop();
         }
     }
+
+
 
     public void gameOver(Graphics g) {
         // Game Over text
@@ -191,4 +192,5 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {}
+    
 }
