@@ -51,17 +51,17 @@ public class LevelTwo extends GamePanel {
         for (int i = 0; i < OBSTACLES_COUNT; i++) {
             if (x[0] == obstaclesX[i] && y[0] == obstaclesY[i]) {
                 running = false;  // End game if snake hits an obstacle
-                timer.stop();
+                handleGameOver();
             }
         }
     }
 
-    // Optionally, make it harder to collect apples by adding more conditions or increasing frequency
-    @Override
-    public void checkApple() {
-        super.checkApple();
-        if (applesEaten % 5 == 0 && applesEaten != 0) {
-            generateObstacles();  // Every 5 apples, add more obstacles to the game
-        }
-    }
+    // // Optionally, make it harder to collect apples by adding more conditions or increasing frequency
+    // @Override
+    // public void checkApple() {
+    //     super.checkApple();
+    //     if (applesEaten % 5 == 0 && applesEaten != 0) {
+    //         generateObstacles();  // Every 5 apples, add more obstacles to the game
+    //     }
+    // }
 }

@@ -148,7 +148,7 @@ public void checkCollisions() {
 }
 
    
-    private void handleGameOver() {
+    protected void handleGameOver() {
         // Stop the game timer when the collision happens
         timer.stop();
         
