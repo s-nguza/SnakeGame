@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
+    private SoundManager soundManager;
+    private final String eatSound = "sounds/eat.wav"; // Path to your sound file
     protected final int SCREEN_WIDTH = 600;
     protected final int SCREEN_HEIGHT = 600;
     protected final int UNIT_SIZE = 25;
@@ -30,6 +32,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     protected boolean paused = false;
 
     public GamePanel() {
+        // Initialize the SoundManager
+        this.soundManager = new SoundManager();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.black);
         this.setFocusable(true);
@@ -96,6 +100,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         if ((x[0] == appleX) && (y[0] == appleY)) {
             bodyParts++;
             applesEaten++;
+            // Play the sound when an apple is eaten
+            soundManager.playSound(eatSound);
             newApple();
         }
         if (applesEaten >= 7) {
