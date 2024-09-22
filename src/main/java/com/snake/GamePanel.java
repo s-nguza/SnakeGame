@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     protected final int x[] = new int[GAME_UNITS];
     protected final int y[] = new int[GAME_UNITS];
     protected int bodyParts = 6;
-    protected int applesEaten; // Change to protected
+    protected int applesEaten = 0; // Change to protected
     protected int appleX;
     protected int appleY;
     protected char direction = 'R';
@@ -95,6 +95,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     public void checkApple() {
         if ((x[0] == appleX) && (y[0] == appleY)) {
             bodyParts++;
+            applesEaten++;
             newApple();
         }
         if (applesEaten >= 7) {
