@@ -12,13 +12,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
-    private SoundManager soundManager;
-    private final String eatSound = "sounds/eat.wav"; // Path to your sound file
     protected final int SCREEN_WIDTH = 600;
     protected final int SCREEN_HEIGHT = 600;
     protected final int UNIT_SIZE = 25;
     protected final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
-    protected final int DELAY = 75;
+    protected final int DELAY = 95;
 
     protected final int x[] = new int[GAME_UNITS];
     protected final int y[] = new int[GAME_UNITS];
@@ -33,7 +31,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     public GamePanel() {
         // Initialize the SoundManager
-        this.soundManager = new SoundManager();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.black);
         this.setFocusable(true);
@@ -101,7 +98,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             bodyParts++;
             applesEaten++;
             // Play the sound when an apple is eaten
-            soundManager.playSound(eatSound);
             newApple();
         }
         if (applesEaten >= 7) {
@@ -118,6 +114,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
     frame.getContentPane().removeAll();
     frame.getContentPane().add(levelTwo);
+        levelTwo.requestFocusInWindow();
+
     frame.revalidate();
     frame.repaint();
 }

@@ -13,6 +13,8 @@ public class LevelTwo extends GamePanel {
         super();
         timer.stop(); // Stop the timer from GamePanel if it's running
         timer = new Timer(LEVEL_TWO_DELAY, this); // Set a faster speed for Level 2
+        this.requestFocusInWindow();  // Request focus to ensure keystrokes are captured
+
         generateObstacles();  // Create obstacles
         startGame();
     }
@@ -56,12 +58,34 @@ public class LevelTwo extends GamePanel {
         }
     }
 
-    // // Optionally, make it harder to collect apples by adding more conditions or increasing frequency
-    // @Override
-    // public void checkApple() {
-    //     super.checkApple();
-    //     if (applesEaten % 5 == 0 && applesEaten != 0) {
-    //         generateObstacles();  // Every 5 apples, add more obstacles to the game
-    //     }
-    // }
+    @Override
+    public void checkApple() {
+        if ((x[0] == appleX) && (y[0] == appleY)) {
+            bodyParts++;
+            applesEaten++;
+            // Play the sound when an apple is eaten
+            newApple();
+        }
+        if (applesEaten >= 7) {
+            // Move to Level Two
+            transitionToLevelThree();
+        }
+    }
+
+
+private void transitionToLevelThree() {
+    timer.stop();
+    
+    // Create and switch to LevelThree
+    LevelThree levelThree = new LevelThree();
+    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+    frame.getContentPane().removeAll();
+    frame.getContentPane().add(levelThree);
+    levelThree.requestFocusInWindow();
+
+    frame.revalidate();
+    frame.repaint();
+    // System.out.println("Aple eatten :"+applesEaten);
+}
+
 }
