@@ -47,19 +47,7 @@ public class LevelThree extends LevelTwo {
         }
     }
 
-    // Add optional moving obstacles
-    private void moveObstacles() {
-        for (int i = 0; i < OBSTACLES_COUNT_LEVEL_THREE; i++) {
-            // Randomly move obstacles up, down, left, or right by UNIT_SIZE
-            int direction = (int) (Math.random() * 4);
-            switch (direction) {
-                case 0 -> obstaclesX[i] = (obstaclesX[i] + UNIT_SIZE) % SCREEN_WIDTH;  // Move right
-                case 1 -> obstaclesX[i] = (obstaclesX[i] - UNIT_SIZE + SCREEN_WIDTH) % SCREEN_WIDTH;  // Move left
-                case 2 -> obstaclesY[i] = (obstaclesY[i] + UNIT_SIZE) % SCREEN_HEIGHT;  // Move down
-                case 3 -> obstaclesY[i] = (obstaclesY[i] - UNIT_SIZE + SCREEN_HEIGHT) % SCREEN_HEIGHT;  // Move up
-            }
-        }
-    }
+    
 
     // Override the actionPerformed method to update moving obstacles
     @Override
@@ -68,9 +56,7 @@ public class LevelThree extends LevelTwo {
             move();
             checkApple();
             checkCollisions();
-            if (obstaclesMove) {
-                moveObstacles();  // Move obstacles in Level Three
-            }
+           
         }
         repaint();
     }
