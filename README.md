@@ -2,8 +2,11 @@
 A classic Snake game developed in Java. The game challenges players to control a snake, collect apples, and avoid obstacles while progressing through multiple levels, each with increasing difficulty.
 
 Classic Gameplay: Control a snake to eat apples and grow longer without hitting the walls or itself.
+
 Level Progression: Unlock new levels with unique challenges as you collect more apples.
+
 Score Tracking: Displays the player's score based on the number of apples eaten.
+
 Simple Controls: Navigate the snake using keyboard arrows.
 
 
@@ -11,8 +14,11 @@ Simple Controls: Navigate the snake using keyboard arrows.
 
 Levels:
 Level 1: Basic gameplay with moderate speed and a straightforward layout.
+
 Level 2: Increased difficulty with faster speed and added obstacles.
+
 Level 3: Maximum difficulty with more obstacles and higher speed.
+
 Installation
 Clone the Repository:
 bash
@@ -33,13 +39,16 @@ Launch the Game using the instructions above.
 
 Control the Snake:
 Use the arrow keys to move the snake in different directions.
+
 Collect Apples to grow the snake and gain points.
+
 Avoid Obstacles and the snake's own tail to stay alive.
+
 Progress Through Levels as you reach set apple counts.
+
 Project Structure
 SnakeGame.java: The main game class that handles the game loop, rendering, and level transitions.
-Apple.java: Handles apple generation and placement in the game grid.
-Level.java: Manages level-specific settings and transitions.
+
 README.md: Documentation for the project.
 
 
