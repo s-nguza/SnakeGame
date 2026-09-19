@@ -1,56 +1,68 @@
 # Snake Game
 A classic Snake game developed in Java. The game challenges players to control a snake, collect apples, and avoid obstacles while progressing through multiple levels, each with increasing difficulty.
 
-Classic Gameplay: Control a snake to eat apples and grow longer without hitting the walls or itself.
+- **Classic Gameplay:** Control a snake to eat apples and grow longer without hitting the walls or itself.
+- **Level Progression:** Unlock new levels with unique challenges as you collect more apples.
+- **Score Tracking:** Displays the player's score based on the number of apples eaten.
+- **Simple Controls:** Navigate the snake using keyboard arrows.
+- **Pause:** Pause and resume the game at any time.
 
-Level Progression: Unlock new levels with unique challenges as you collect more apples.
+## Objective
+Eat as many apples as possible to grow the snake and progress through all 5 levels.
 
-Score Tracking: Displays the player's score based on the number of apples eaten.
+## Levels
+Each level has its own background color and its own obstacle color, so you can tell at a glance how far you've progressed. Obstacles are cumulative — each new level adds its obstacles on top of the ones from earlier levels, on top of a faster snake.
 
-Simple Controls: Navigate the snake using keyboard arrows.
+| Level | Speed | Background | Obstacle color | Notes |
+|---|---|---|---|---|
+| 1 | Moderate | Black | — | Basic gameplay, no obstacles |
+| 2 | Faster | Dark navy blue | Blue | 5 obstacles added |
+| 3 | Faster still | Dark maroon | Green | 10 more obstacles added |
+| 4 | Very fast | Dark purple | Purple | 8 more obstacles added |
+| 5 | Fastest | Near-black | Yellow | 7 more obstacles added — final level |
 
+Eat 7 apples on a level to advance to the next one. Clear Level 5 and you win the game, with the option to play again from Level 1.
 
-##Objective: Eat as many apples as possible to grow the snake and progress through levels.
+## Installation
+Requires a JDK (Java 17 or later).
 
-Levels:
-Level 1: Basic gameplay with moderate speed and a straightforward layout.
-
-Level 2: Increased difficulty with faster speed and added obstacles.
-
-Level 3: Maximum difficulty with more obstacles and higher speed.
-
-Installation
-Clone the Repository:
-bash
-Copy code
+Clone the repository:
+```bash
 git clone https://github.com/your-username/snakegame.git
-Compile the Game: Open a terminal and navigate to the project directory:
-bash
-Copy code
-cd path/to/snakegame
-javac SnakeGame.java
-Run the Game:
-bash
-Copy code
-java SnakeGame
+cd snakegame
+```
 
-##How to Play
-Launch the Game using the instructions above.
+Compile the game:
+```bash
+javac -d target/classes src/main/java/com/snake/*.java
+```
 
-Control the Snake:
-Use the arrow keys to move the snake in different directions.
+Run the game:
+```bash
+java -cp target/classes com.snake.SnakeGame
+```
 
-Collect Apples to grow the snake and gain points.
+## How to Play
+Launch the game using the instructions above.
 
-Avoid Obstacles and the snake's own tail to stay alive.
+- **Move the Snake:** Use the arrow keys to move the snake up, down, left, or right.
+- **Pause / Resume:** Press `P` to pause the game, press `P` again to resume.
+- **Collect Apples** to grow the snake and gain points.
+- **Avoid Obstacles** and the snake's own tail to stay alive.
+- **Progress Through Levels** as you reach 7 apples eaten on the current level.
+- **Win the Game** by clearing Level 5.
 
-Progress Through Levels as you reach set apple counts.
+## Project Structure
+```
+src/main/java/com/snake/
+├── SnakeGame.java   Entry point (main method)
+├── GameFrame.java   The game window
+├── GamePanel.java   Level 1 - game loop, rendering, scoring, pause, game over/win handling
+├── LevelTwo.java    Level 2 - adds obstacles and increases speed
+├── LevelThree.java  Level 3 - adds more obstacles and increases speed further
+├── LevelFour.java   Level 4 - adds more obstacles and increases speed further
+└── LevelFive.java   Level 5 - final level, adds more obstacles and the win condition
+```
 
-Project Structure
-SnakeGame.java: The main game class that handles the game loop, rendering, and level transitions.
-
-README.md: Documentation for the project.
-
-
-Credits
+## Credits
 Developed by Siyabonga Nguza.

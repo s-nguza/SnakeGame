@@ -31,7 +31,7 @@ public class LevelFour extends LevelThree {
         super.draw(g);
 
         if (running) {
-            g.setColor(Color.magenta); // Level 4's own obstacle color
+            g.setColor(new Color(128, 0, 128)); // Level 4's own obstacle color (purple)
             for (int i = 0; i < OBSTACLES_COUNT_LEVEL_FOUR; i++) {
                 g.fillRect(obstaclesX[i], obstaclesY[i], UNIT_SIZE, UNIT_SIZE);
             }

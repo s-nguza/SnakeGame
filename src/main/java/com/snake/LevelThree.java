@@ -35,7 +35,7 @@ public class LevelThree extends LevelTwo {
 
         // Draw more obstacles for level three if the game is running
         if (running) {
-            g.setColor(Color.orange);  // Change color to differentiate
+            g.setColor(Color.green);  // Level 3 obstacle color
             for (int i = 0; i < OBSTACLES_COUNT_LEVEL_THREE; i++) {
                 g.fillRect(obstaclesX[i], obstaclesY[i], UNIT_SIZE, UNIT_SIZE);
             }
