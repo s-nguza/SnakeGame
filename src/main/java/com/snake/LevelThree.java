@@ -80,4 +80,32 @@ public class LevelThree extends LevelTwo {
             }
         }
     }
+
+    // Level Three previously had no override here, so it inherited Level Two's
+    // checkApple() and looped back into itself instead of advancing.
+    @Override
+    public void checkApple() {
+        if ((x[0] == appleX) && (y[0] == appleY)) {
+            bodyParts++;
+            applesEaten++;
+            newApple();
+        }
+        if (applesEaten >= 7) {
+            transitionToLevelFour();
+        }
+    }
+
+    private void transitionToLevelFour() {
+        timer.stop();
+
+        LevelFour levelFour = new LevelFour();
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(levelFour);
+        levelFour.requestFocusInWindow();
+        frame.setTitle("Snake Game - Level 4");
+
+        frame.revalidate();
+        frame.repaint();
+    }
 }

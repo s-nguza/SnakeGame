@@ -81,13 +81,14 @@ public class LevelTwo extends GamePanel {
 
 private void transitionToLevelThree() {
     timer.stop();
-    
+
     // Create and switch to LevelThree
     LevelThree levelThree = new LevelThree();
     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
     frame.getContentPane().removeAll();
     frame.getContentPane().add(levelThree);
     levelThree.requestFocusInWindow();
+    frame.setTitle("Snake Game - Level 3");
 
     frame.revalidate();
     frame.repaint();

@@ -130,6 +130,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     frame.getContentPane().removeAll();
     frame.getContentPane().add(levelTwo);
         levelTwo.requestFocusInWindow();
+        frame.setTitle("Snake Game - Level 2");
 
     frame.revalidate();
     frame.repaint();
@@ -206,7 +207,42 @@ public void checkCollisions() {
         newApple();
         timer.restart();
     }
-    
+
+    /**
+     * Called when the player clears the final level. Offers to start a
+     * brand new game from Level 1, or quit.
+     */
+    protected void handleWin() {
+        timer.stop();
+
+        int choice = JOptionPane.showOptionDialog(this,
+                "Congratulations! You cleared every level! Play again or quit?",
+                "You Win!",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"Play Again", "Quit"},
+                "Play Again");
+
+        if (choice == JOptionPane.YES_OPTION) {
+            restartToLevelOne();
+        } else {
+            System.exit(0);
+        }
+    }
+
+    private void restartToLevelOne() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        GamePanel levelOne = new GamePanel();
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(levelOne);
+        levelOne.requestFocusInWindow();
+        frame.setTitle("Snake Game - Level 1");
+
+        frame.revalidate();
+        frame.repaint();
+    }
+
 
 
 
