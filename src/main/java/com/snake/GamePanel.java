@@ -28,14 +28,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     protected boolean running = false;
     protected Timer timer;
     protected boolean paused = false;
+    private boolean pauseKeyHeld = false;
 
     public GamePanel() {
         // Initialize the SoundManager
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        this.setBackground(Color.black);
+        this.setBackground(getLevelBackgroundColor());
         this.setFocusable(true);
         this.addKeyListener(this);
+        this.requestFocusInWindow();
         startGame();
+    }
+
+    /**
+     * The background color for this level. Subclasses override this to give
+     * each level its own look and feel.
+     */
+    protected Color getLevelBackgroundColor() {
+        return Color.black; // Level 1
     }
 
     public void startGame() {
@@ -55,6 +65,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.setFont(new Font("Ink Free", Font.BOLD, 40));
         FontMetrics metrics = getFontMetrics(g.getFont());
         g.drawString("Paused", (SCREEN_WIDTH - metrics.stringWidth("Paused")) / 2, SCREEN_HEIGHT / 2);
+
+        g.setFont(new Font("Ink Free", Font.PLAIN, 18));
+        FontMetrics hintMetrics = getFontMetrics(g.getFont());
+        String hint = "Press P to Resume";
+        g.drawString(hint, (SCREEN_WIDTH - hintMetrics.stringWidth(hint)) / 2, SCREEN_HEIGHT / 2 + 35);
     }
 
     public void draw(Graphics g) {
@@ -260,15 +275,20 @@ public void checkCollisions() {
                 }
                 break;
             case KeyEvent.VK_P:  // Pause key
-                if (running) {
+                if (running && !pauseKeyHeld) {
                     paused = !paused;  // Toggle the pause state
+                    pauseKeyHeld = true; // Prevent OS key-repeat from rapidly re-toggling
                 }
                 break;
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_P) {
+            pauseKeyHeld = false;
+        }
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {}

@@ -19,6 +19,12 @@ public class LevelTwo extends GamePanel {
         startGame();
     }
 
+    // Give Level Two its own background so players can tell levels apart at a glance
+    @Override
+    protected Color getLevelBackgroundColor() {
+        return new Color(10, 20, 50); // Dark navy blue
+    }
+
     // Override the draw method to also draw the obstacles
     @Override
     public void draw(Graphics g) {

@@ -22,6 +22,12 @@ public class LevelThree extends LevelTwo {
         startGame();
     }
 
+    // Give Level Three its own background, reflecting the higher difficulty
+    @Override
+    protected Color getLevelBackgroundColor() {
+        return new Color(55, 15, 15); // Dark maroon/red
+    }
+
     // Override the draw method to also draw obstacles
     @Override
     public void draw(Graphics g) {
